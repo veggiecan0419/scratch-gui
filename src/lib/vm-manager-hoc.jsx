@@ -33,6 +33,8 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
                 this.props.vm.initialized = true;
+                this.props.vm.securityManager.getSandboxMode = this.getExtensionSandboxMode;
+                this.props.vm.securityManager.canLoadExtensionFromProject = this.canLoadExtensionFromProject;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
             }
             if (!this.props.isPlayerOnly && !this.props.isStarted) {
@@ -50,6 +52,19 @@ const vmManagerHOC = function (WrappedComponent) {
             if (!this.props.isPlayerOnly && !this.props.isStarted) {
                 this.props.vm.start();
             }
+        }
+        getExtensionSandboxMode (extensionURL) {
+            if (extensionURL.startsWith('https://extensions.turbowarp.org/')) {
+                return 'unsandboxed';
+            }
+            return 'iframe';
+        }
+        canLoadExtensionFromProject (extensionURL) {
+            if (extensionURL.startsWith('https://extensions.turbowarp.org/')) {
+                return true;
+            }
+            // eslint-disable-next-line no-alert
+            return confirm(`Do you want to load the extension: ${extensionURL}`);
         }
         loadProject () {
             // tw: stop when loading new project
