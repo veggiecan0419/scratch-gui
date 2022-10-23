@@ -18,6 +18,7 @@ import {
 } from '../reducers/color-picker';
 
 import {setHighQualityPenState} from '../reducers/tw';
+import * as pointerlock from '../lib/tw-pointerlock';
 
 const colorPickerRadius = 20;
 const dragThreshold = 3; // Same as the block drag threshold
@@ -83,6 +84,8 @@ class Stage extends React.Component {
 
             // tw: handle changes to high quality pen
             this.props.vm.renderer.on('UseHighQualityRenderChanged', this.props.onHighQualityPenChanged);
+
+            pointerlock.run(this.props.vm);
         }
         this.props.vm.attachV2BitmapAdapter(new V2BitmapAdapter());
     }
@@ -140,6 +143,7 @@ class Stage extends React.Component {
         cancelAnimationFrame(this.animationFrameId);
     }
     attachMouseEvents (canvas) {
+        /*
         document.addEventListener('mousemove', this.onMouseMove);
         document.addEventListener('mouseup', this.onMouseUp);
         document.addEventListener('touchmove', this.onMouseMove);
@@ -148,6 +152,7 @@ class Stage extends React.Component {
         canvas.addEventListener('touchstart', this.onMouseDown);
         canvas.addEventListener('wheel', this.onWheel);
         canvas.addEventListener('contextmenu', this.onContextMenu);
+        */
     }
     detachMouseEvents (canvas) {
         document.removeEventListener('mousemove', this.onMouseMove);
@@ -169,6 +174,7 @@ class Stage extends React.Component {
     }
     updateRect () {
         this.rect = this.canvas.getBoundingClientRect();
+        pointerlock.setRect(this.rect);
     }
     getScratchCoords (x, y) {
         const nativeSize = this.renderer.getNativeSize();
