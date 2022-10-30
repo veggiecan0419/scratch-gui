@@ -43,6 +43,10 @@ class TWSecurityManagerComponent extends React.Component {
             log.info(`Loading extension ${url} unsandboxed`);
             return 'unsandboxed';
         }
+        // FIXME: TODO: REMOVE THIS BEFORE RELEASE
+        if (url.startsWith('http://localhost:8000/')) {
+            return 'unsandboxed';
+        }
         return 'iframe';
     }
 
