@@ -57,6 +57,15 @@ class LibraryItemComponent extends React.PureComponent {
                     <span className={styles.libraryItemName}>{this.props.name}</span>
                     <br />
                     <span className={styles.featuredDescription}>{this.props.description}</span>
+                    {this.props.incompatibleWithScratch && (
+                        <div className={styles.incompatibleWithScratch}>
+                            <FormattedMessage
+                                defaultMessage="Incompatible with Scratch."
+                                description="Description under extensions that will not work in a normal Scratch."
+                                id="tw.incompatibleWithScratch"
+                            />
+                        </div>
+                    )}
                 </div>
                 {this.props.bluetoothRequired || this.props.internetConnectionRequired || this.props.collaborator ? (
                     <div className={styles.featuredExtensionMetadata}>
@@ -161,6 +170,7 @@ LibraryItemComponent.propTypes = {
     featured: PropTypes.bool,
     hidden: PropTypes.bool,
     iconURL: PropTypes.string,
+    incompatibleWithScratch: PropTypes.bool,
     insetIconURL: PropTypes.string,
     internetConnectionRequired: PropTypes.bool,
     isPlaying: PropTypes.bool,
