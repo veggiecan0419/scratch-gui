@@ -339,8 +339,43 @@ export default [
                 id="tw.twExtension.description"
             />
         ),
-        featured: true,
-        incompatibleWithScratch: true
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Box2D Physics',
+        extensionId: 'https://extensions.turbowarp.org/box2d.js',
+        description: 'Two dimensional physics. Originally by griffpatch.',
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Utilities',
+        extensionId: 'https://extensions.turbowarp.org/utilities.js',
+        description: 'A bunch of interesting blocks. Originally by Sheep_maker.',
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Gamepad',
+        extensionId: 'https://extensions.turbowarp.org/gamepad.js',
+        description: 'Directly access gamepads instead of just mapping buttons to keys.',
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Fetch',
+        extensionId: 'https://extensions.turbowarp.org/fetch.js',
+        description: 'Make requests to the broader internet.',
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Bitwise',
+        extensionId: 'https://extensions.turbowarp.org/bitwise.js',
+        description: 'Bitwise operations for Scratch.',
+        incompatibleWithScratch: true,
+        featured: true
     },
     {
         name: (
