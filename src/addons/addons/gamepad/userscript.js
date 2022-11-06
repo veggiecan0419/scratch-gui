@@ -17,6 +17,7 @@ import GamepadLib from "./gamepadlib.js";
 
 export default async function ({ addon, global, console, msg }) {
   const vm = addon.tab.traps.vm;
+  const pointerlock = true;
 
   // Wait for the project to finish loading. Renderer and scripts will not be fully available until this happens.
   await new Promise((resolve) => {
@@ -421,16 +422,37 @@ export default async function ({ addon, global, console, msg }) {
     });
   };
   const handleGamepadMouseMove = (e) => {
-    virtualX = e.detail.x;
-    virtualY = e.detail.y;
-    virtualCursorSetPosition(virtualX, virtualY);
-    postMouseData({});
+    const {x, y} = e.detail;
+    if (pointerlock) {
+      const deltaX = x - virtualX;
+      const deltaY = -(y - virtualY);
+      virtualX = x;
+      virtualY = y;
+      // Coordinates that pointerlock accepts are in "screen space" but virtual cursor is in "stage space"
+      const SPEED_MULTIPLIER = 4.0;
+      const [rectWidth, rectHeight] = getCanvasSize();
+      const zoomMultiplierX = rectWidth / vm.runtime.stageWidth;
+      const zoomMultiplierY = rectHeight / vm.runtime.stageHeight;
+      // This is defined in pointerlock addon
+      vm.pointerLockMove(
+        deltaX * SPEED_MULTIPLIER * zoomMultiplierX,
+        deltaY * SPEED_MULTIPLIER * zoomMultiplierY
+      );
+    } else {
+      virtualX = x;
+      virtualY = y;
+      virtualCursorSetPosition(virtualX, virtualY);
+      postMouseData({});
+    }
   };
 
-  gamepad.virtualCursor.maxX = renderer._xRight;
-  gamepad.virtualCursor.minX = renderer._xLeft;
-  gamepad.virtualCursor.maxY = renderer._yTop;
-  gamepad.virtualCursor.minY = renderer._yBottom;
+  if (!pointerlock) {
+    gamepad.virtualCursor.maxX = renderer._xRight;
+    gamepad.virtualCursor.minX = renderer._xLeft;
+    gamepad.virtualCursor.maxY = renderer._yTop;
+    gamepad.virtualCursor.minY = renderer._yBottom;
+  }
+
   gamepad.addEventListener("keydown", handleGamepadButtonDown);
   gamepad.addEventListener("keyup", handleGamepadButtonUp);
   gamepad.addEventListener("mousedown", handleGamepadMouseDown);
