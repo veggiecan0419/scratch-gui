@@ -6,18 +6,31 @@ import log from './log';
 import {setProjectTitle} from '../reducers/project-title';
 import {setAuthor, setDescription} from '../reducers/tw';
 
-const API_URL = 'https://trampoline.turbowarp.org/proxy/projects/$id';
-
-const fetchProjectMeta = projectId => fetch(API_URL.replace('$id', projectId))
-    .then(r => {
-        if (r.status === 404) {
-            throw new Error('Probably unshared (API returned 404)');
+export const fetchProjectMeta = async projectId => {
+    const urls = [
+        `https://trampoline.turbowarp.org/proxy/projects/${projectId}`,
+        `https://trampoline.turbowarp.xyz/proxy/projects/${projectId}`
+    ];
+    let firstError;
+    for (const url of urls) {
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            if (res.ok) {
+                return data;
+            }
+            if (res.status === 404) {
+                throw new Error('Project is probably unshared');
+            }
+            throw new Error(`Unexpected status code: ${res.status}`);
+        } catch (err) {
+            if (!firstError) {
+                firstError = err;
+            }
         }
-        if (r.status !== 200) {
-            throw new Error(`Unexpected status code: ${r.status}`);
-        }
-        return r.json();
-    });
+    }
+    throw firstError;
+};
 
 const getNoIndexTag = () => document.querySelector('meta[name="robots"][content="noindex"]');
 const setIndexable = indexable => {
