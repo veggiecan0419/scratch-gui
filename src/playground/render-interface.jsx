@@ -105,13 +105,6 @@ const Footer = () => (
             </div>
             <div className={styles.footerColumns}>
                 <div className={styles.footerSection}>
-                    <a href="https://fosshost.org/">
-                        <FormattedMessage
-                            defaultMessage="Hosting provided by Fosshost"
-                            description="Fosshost link in footer"
-                            id="tw.footer.fosshost"
-                        />
-                    </a>
                     <a href="credits.html">
                         <FormattedMessage
                             defaultMessage="Credits"
@@ -270,16 +263,11 @@ class Interface extends React.Component {
                                 projectId === '0' || description.instructions === 'unshared' || description.credits === 'unshared'
                             ) && (
                                 <div className={styles.unsharedUpdate}>
-                                    {/* I won't link these in the public website because there will be way */}
-                                    {/* too much spam if we do that, but here are the relevant links: */}
-                                    {/* https://github.com/LLK/scratch-gui/pull/8269 */}
-                                    {/* https://github.com/LLK/scratch-www/pull/6773 */}
                                     <p>
                                         <FormattedMessage
-                                            // eslint-disable-next-line max-len
-                                            defaultMessage="Unshared projects will no longer be accessible using just their project ID at some point in the future due to upcoming Scratch API changes."
+                                            defaultMessage="Unshared projects are no longer visible."
                                             description="Appears on unshared projects"
-                                            id="tw.unshared.1"
+                                            id="tw.unshared2.1"
                                         />
                                     </p>
                                     <p>
@@ -304,14 +292,24 @@ class Interface extends React.Component {
                                         description.instructions === 'unshared' ||
                                         description.credits === 'unshared'
                                     ) && (
-                                        <p>
-                                            <FormattedMessage
-                                                // eslint-disable-next-line max-len
-                                                defaultMessage="If the project was shared recently, this message may appear incorrectly for a few minutes."
-                                                description="Appears on unshared projects"
-                                                id="tw.unshared.cache"
-                                            />
-                                        </p>
+                                        <React.Fragment>
+                                            <p>
+                                                <FormattedMessage
+                                                    // eslint-disable-next-line max-len
+                                                    defaultMessage="If the project was shared recently, this message may appear incorrectly for a few minutes."
+                                                    description="Appears on unshared projects"
+                                                    id="tw.unshared.cache"
+                                                />
+                                            </p>
+                                            <p>
+                                                <FormattedMessage
+                                                    // eslint-disable-next-line max-len
+                                                    defaultMessage="If this project is actually shared, please report a bug."
+                                                    description="Appears on unshared projects"
+                                                    id="tw.unshared.bug"
+                                                />
+                                            </p>
+                                        </React.Fragment>
                                     )}
                                 </div>
                             )}
