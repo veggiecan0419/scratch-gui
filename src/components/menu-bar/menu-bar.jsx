@@ -733,30 +733,19 @@ class MenuBar extends React.Component {
                                             />
                                         </MenuItem>
                                     )}</ChangeUsername>
-                                    <CloudVariablesToggler>{(toggleCloudVariables, {enabled, canUseCloudVariables}) => (
-                                        <MenuItem
-                                            className={classNames({[styles.disabled]: !canUseCloudVariables})}
-                                            onClick={toggleCloudVariables}
-                                        >
-                                            {canUseCloudVariables ? (
-                                                enabled ? (
-                                                    <FormattedMessage
-                                                        defaultMessage="Disable Cloud Variables"
-                                                        description="Menu bar item for disabling cloud variables"
-                                                        id="tw.menuBar.cloudOff"
-                                                    />
-                                                ) : (
-                                                    <FormattedMessage
-                                                        defaultMessage="Enable Cloud Variables"
-                                                        description="Menu bar item for enabling cloud variables"
-                                                        id="tw.menuBar.cloudOn"
-                                                    />
-                                                )
+                                    <CloudVariablesToggler>{(toggleCloudVariables, enabled) => (
+                                        <MenuItem onClick={toggleCloudVariables}>
+                                            {enabled ? (
+                                                <FormattedMessage
+                                                    defaultMessage="Disable Cloud Variables"
+                                                    description="Menu bar item for disabling cloud variables"
+                                                    id="tw.menuBar.cloudOff"
+                                                />
                                             ) : (
                                                 <FormattedMessage
-                                                    defaultMessage="Cloud Variables are not Available"
-                                                    description="Menu bar item for when cloud variables are not available"
-                                                    id="tw.menuBar.cloudUnavailable"
+                                                    defaultMessage="Enable Cloud Variables"
+                                                    description="Menu bar item for enabling cloud variables"
+                                                    id="tw.menuBar.cloudOn"
                                                 />
                                             )}
                                         </MenuItem>
