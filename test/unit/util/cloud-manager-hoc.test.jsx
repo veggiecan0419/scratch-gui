@@ -140,7 +140,7 @@ describe('CloudManagerHOC', () => {
         expect(CloudProvider).not.toHaveBeenCalled();
     });
 
-    test('if the isShowingWithId prop becomes true, it sets the cloud provider on the vm', () => {
+    test('if the isShowingProject prop becomes true, it sets the cloud provider on the vm', () => {
         const Component = () => <div />;
         const WrappedComponent = cloudManagerHOC(Component);
         const onShowCloudInfo = jest.fn();
@@ -162,7 +162,7 @@ describe('CloudManagerHOC', () => {
         vm.emit('HAS_CLOUD_DATA_UPDATE', true);
 
         mounted.setProps({
-            isShowingWithId: true,
+            isShowingProject: true,
             loadingState: LoadingState.SHOWING_WITH_ID
         });
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
@@ -171,7 +171,7 @@ describe('CloudManagerHOC', () => {
         expect(onShowCloudInfo).not.toHaveBeenCalled();
     });
 
-    test('projectId change should not trigger cloudProvider connection unless isShowingWithId becomes true', () => {
+    test('projectId change should not trigger cloudProvider connection unless isShowingProject becomes true', () => {
         const Component = () => <div />;
         const WrappedComponent = cloudManagerHOC(Component);
         const mounted = mountWithIntl(
@@ -189,7 +189,7 @@ describe('CloudManagerHOC', () => {
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
         mounted.setProps({
-            isShowingWithId: true,
+            isShowingProject: true,
             loadingState: LoadingState.SHOWING_WITH_ID
         });
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
@@ -242,7 +242,8 @@ describe('CloudManagerHOC', () => {
             projectId: 'a different id'
         });
 
-        expect(vm.setCloudProvider.mock.calls.length).toBe(2);
+        // should be 3 not 2 -- one to connect initially, one to disconnect, one to reconnect
+        expect(vm.setCloudProvider.mock.calls.length).toBe(3);
         expect(vm.setCloudProvider).toHaveBeenCalledWith(null);
         expect(requestCloseConnection).toHaveBeenCalledTimes(1);
 
