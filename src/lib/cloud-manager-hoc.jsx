@@ -7,6 +7,7 @@ import VM from 'scratch-vm';
 import CloudProvider from '../lib/cloud-provider';
 
 import {
+    getIsShowingProject,
     getIsShowingWithId
 } from '../reducers/project-state';
 
@@ -43,8 +44,7 @@ const cloudManagerHOC = function (WrappedComponent) {
             // when loading a new project e.g. via file upload
             // (and eventually move it out of the vm.clear function)
 
-            // tw: handle cases where we should explicitly close and reconnect() in the same update
-            if (this.shouldReconnect(this.props, prevProps)) {
+            if (this.shouldConsiderReconnecting(this.props, prevProps)) {
                 this.disconnectFromCloud();
                 if (this.shouldConnect(this.props)) {
                     this.connectToCloud();
@@ -68,7 +68,7 @@ const cloudManagerHOC = function (WrappedComponent) {
         }
         shouldConnect (props) {
             return !this.isConnected() && this.canUseCloud(props) &&
-                props.isShowingWithId && props.vm.runtime.hasCloudData() &&
+                props.isShowingProject && props.vm.runtime.hasCloudData() &&
                 props.canModifyCloudData;
         }
         shouldDisconnect (props, prevProps) {
@@ -83,10 +83,11 @@ const cloudManagerHOC = function (WrappedComponent) {
                     !props.canModifyCloudData
                 );
         }
-        // tw: handle cases where we should explicitly close and reconnect() in the same update
-        shouldReconnect (props, prevProps) {
-            // reconnect when username changes
-            return this.isConnected() && props.username !== prevProps.username;
+        shouldConsiderReconnecting (props, prevProps) {
+            return this.isConnected() && (
+                props.username !== prevProps.username ||
+                props.projectId !== prevProps.projectId
+            );
         }
         isConnected () {
             return this.cloudProvider && !!this.cloudProvider.connection;
@@ -126,7 +127,7 @@ const cloudManagerHOC = function (WrappedComponent) {
                 projectId,
                 username,
                 hasCloudPermission,
-                isShowingWithId,
+                isShowingProject,
                 onShowCloudInfo,
                 onInvalidUsername,
                 /* eslint-enable no-unused-vars */
@@ -147,7 +148,7 @@ const cloudManagerHOC = function (WrappedComponent) {
         canModifyCloudData: PropTypes.bool.isRequired,
         cloudHost: PropTypes.string,
         hasCloudPermission: PropTypes.bool,
-        isShowingWithId: PropTypes.bool.isRequired,
+        isShowingProject: PropTypes.bool.isRequired,
         onInvalidUsername: PropTypes.func,
         onShowCloudInfo: PropTypes.func,
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -161,14 +162,19 @@ const cloudManagerHOC = function (WrappedComponent) {
         username: null
     };
 
-    const mapStateToProps = (state, ownProps) => {
+    const mapStateToProps = state => {
         const loadingState = state.scratchGui.projectState.loadingState;
+        const baseProjectId = getIsShowingWithId(loadingState) ? (
+            state.scratchGui.projectState.projectId
+        ) : (
+            `@gui/${state.scratchGui.projectTitle}`
+        );
         return {
-            isShowingWithId: getIsShowingWithId(loadingState),
-            projectId: state.scratchGui.projectState.projectId,
+            isShowingProject: getIsShowingProject(loadingState),
+            projectId: state.scratchGui.mode.hasEverEnteredEditor ? `@editor/${baseProjectId}` : baseProjectId,
             hasCloudPermission: state.scratchGui.tw ? state.scratchGui.tw.cloud : false,
             username: state.scratchGui.tw ? state.scratchGui.tw.username : '',
-            canModifyCloudData: (!state.scratchGui.mode.hasEverEnteredEditor || ownProps.canSave)
+            canModifyCloudData: true
         };
     };
 
