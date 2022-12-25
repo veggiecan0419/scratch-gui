@@ -139,6 +139,7 @@ const mapStateToProps = state => {
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
         error: state.scratchGui.projectState.error,
+        isEditingLazyTarget: state.scratchGui.vm.editingTarget && state.scratchGui.vm.editingTarget.lazyLoading,
         isError: getIsError(loadingState),
         isEmbedded: state.scratchGui.mode.isEmbedded,
         isFullScreen: state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isEmbedded,

@@ -294,6 +294,14 @@ const GUIComponent = props => {
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
                         <Box className={styles.editorWrapper}>
+                            {vm.editingTarget && vm.editingTarget.lazyLoading && (
+                                <div className={styles.lazyOverlay}>
+                                    <p>{'This sprite is lazily loaded. You must load it first to edit it.'}</p>
+                                    <button onClick={() => {
+                                        vm.editingTarget.unlazy();
+                                    }}>{'Load Sprite'}</button>
+                                </div>
+                            )}
                             <Tabs
                                 forceRenderTabPanel
                                 className={tabClassNames.tabs}
