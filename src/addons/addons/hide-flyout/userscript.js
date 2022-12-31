@@ -7,7 +7,7 @@ const _twGetAsset = (path) => {
   throw new Error(`Unknown asset: ${path}`);
 };
 
-export default async function ({ addon, global, console, msg }) {
+export default async function ({ addon, console, msg }) {
   let placeHolderDiv = null;
   let lockObject = null;
   let lockButton = null;
@@ -23,30 +23,12 @@ export default async function ({ addon, global, console, msg }) {
 
   const Blockly = await addon.tab.traps.getBlockly();
 
-  const updateCSSVariables = () => {
-    const mode = getToggleSetting();
-    const modeToLockDisplay = {
-      hover: "flex",
-      cathover: "flex",
-      category: "none"
-    };
-    document.documentElement.style.setProperty('--hideFlyout-lockDisplay', modeToLockDisplay[mode]);
-    const modeToPlaceholderDisplay = {
-      hover: "block",
-      cathover: "none",
-      category: "none"
-    };
-    document.documentElement.style.setProperty('--hideFlyout-placeholderDisplay', modeToPlaceholderDisplay[mode]);
-  };
-  addon.settings.addEventListener("change", updateCSSVariables);
-  updateCSSVariables();
-
   function getSpeedValue() {
     let data = {
       none: "0",
-      short: "0.25",
-      default: "0.5",
-      long: "1",
+      short: "0.2",
+      default: "0.3",
+      long: "0.5",
     };
     return data[addon.settings.get("speed")];
   }
@@ -108,6 +90,12 @@ export default async function ({ addon, global, console, msg }) {
     }, speed * 1000);
   }
 
+  const updateIsFullScreen = () => {
+    const isFullScreen = addon.tab.redux.state.scratchGui.mode.isFullScreen;
+    document.documentElement.classList.toggle("sa-hide-flyout-not-fullscreen", !isFullScreen);
+  };
+  updateIsFullScreen();
+
   let didOneTimeSetup = false;
   function doOneTimeSetup() {
     if (didOneTimeSetup) {
@@ -119,7 +107,7 @@ export default async function ({ addon, global, console, msg }) {
     addon.tab.redux.addEventListener("statechanged", (e) => {
       switch (e.detail.action.type) {
         // Event casted when you switch between tabs
-        case "scratch-gui/navigation/ACTIVATE_TAB":
+        case "scratch-gui/navigation/ACTIVATE_TAB": {
           // always 0, 1, 2
           const toggleSetting = getToggleSetting();
           if (
@@ -130,6 +118,10 @@ export default async function ({ addon, global, console, msg }) {
             onmouseleave(null, 0);
             toggle = false;
           }
+          break;
+        }
+        case "scratch-gui/mode/SET_FULL_SCREEN":
+          updateIsFullScreen();
           break;
       }
     });
