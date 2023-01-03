@@ -73,7 +73,8 @@ class GeneratedImports {
     }
 
     add (src, namespace) {
-        // TODO: rewrite src to replace \\ with / for Windows?
+        // On Windows, convert \ to / in paths.
+        src = src.replace(/\\/g, '/');
 
         namespace = namespace.replace(/[^\w\d_]/g, '_');
 
