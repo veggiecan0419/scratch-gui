@@ -79,6 +79,11 @@ export default async function ({ addon, console }) {
     secondary: "#3aa8a4",
     tertiary: "#3aa8a4",
   };
+  originalColors.tw = {
+    primary: "#ff4c4c",
+    secondary: "#e64444",
+    tertiary: "#e64444"
+  };
 
   let textMode = addon.settings.get("text");
   const isColoredTextMode = () => !addon.self.disabled && (textMode === "colorOnWhite" || textMode === "colorOnBlack");
@@ -315,6 +320,7 @@ export default async function ({ addon, console }) {
     const flyoutWorkspace = flyout.getWorkspace();
     Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.workspaceToDom(flyoutWorkspace), flyoutWorkspace);
     toolbox.populate_(workspace.options.languageTree);
+    workspace.toolboxRefreshEnabled_ = true;
   };
 
   updateColors();
