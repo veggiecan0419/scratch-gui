@@ -5,6 +5,7 @@ import VM from 'scratch-vm';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
+import extensionTags from '../lib/libraries/tw-extension-tags';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
@@ -57,24 +58,13 @@ class ExtensionLibrary extends React.PureComponent {
             url = prompt(this.props.intl.formatMessage(messages.extensionUrl));
         }
         if (url && !item.disabled) {
-            if (this.props.vm.extensionManager.isExtensionLoaded(url)) {
+            if (this.props.vm.extensionManager.isExtensionLoaded(id)) {
                 this.props.onCategorySelected(id);
             } else {
                 const parsedURL = isCustomURL ? parseExtensionURL(url) : url;
                 this.props.vm.extensionManager.loadExtensionURL(parsedURL)
                     .then(() => {
                         this.props.onCategorySelected(id);
-                        if (isCustomURL) {
-                            let newUrl = location.pathname;
-                            if (location.search) {
-                                newUrl += location.search;
-                                newUrl += '&';
-                            } else {
-                                newUrl += '?';
-                            }
-                            newUrl += `extension=${encodeURIComponent(url)}`;
-                            history.replaceState('', '', newUrl);
-                        }
                     })
                     .catch(err => {
                         // eslint-disable-next-line no-alert
@@ -93,6 +83,7 @@ class ExtensionLibrary extends React.PureComponent {
                 data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"
+                tags={extensionTags}
                 title={this.props.intl.formatMessage(messages.extensionTitle)}
                 visible={this.props.visible}
                 onItemSelected={this.handleItemSelect}

@@ -1,11 +1,4 @@
-/* inserted by pull.js */
-import _twAsset0 from "!url-loader!./folder.svg";
-const _twGetAsset = (path) => {
-  if (path === "/folder.svg") return _twAsset0;
-  throw new Error(`Unknown asset: ${path}`);
-};
-
-export default async function ({ addon, global, console, msg }) {
+export default async function ({ addon, console, msg }) {
   // The basic premise of how this addon works is relative simple.
   // scratch-gui renders the sprite selectors and asset selectors in a hierarchy like this:
   // <SelectorHOC>
@@ -134,7 +127,7 @@ export default async function ({ addon, global, console, msg }) {
     assetId: "&__sa_folders_folder",
     encodeDataURI() {
       // Doesn't actually need to be a data: URI
-      return _twGetAsset("/folder.svg");
+      return addon.self.getResource("/folder.svg") /* rewritten by pull.js */;
     },
   };
 
