@@ -322,6 +322,15 @@ class Interface extends React.Component {
                             ) : null}
                             <div className={styles.section}>
                                 <p>
+                                    {'Tip: Although the pointerlock experiment will always work and will never be '}
+                                    {'removed, we recommend using the new pointerlock extension on '}
+                                    <a href="https://extensions.turbowarp.org/">{'extensions.turbowarp.org'}</a>
+                                    {' instead if you don\'t care about uploading your project to Scratch. It has '}
+                                    {'blocks that let you turn locking on or off.'}
+                                </p>
+                            </div>
+                            <div className={styles.section}>
+                                <p>
                                     <FormattedMessage
                                         // eslint-disable-next-line max-len
                                         defaultMessage="TurboWarp is a Scratch mod that compiles projects to JavaScript to make them run really fast. Try it out by inputting a project ID or URL above or choosing a featured project below."
