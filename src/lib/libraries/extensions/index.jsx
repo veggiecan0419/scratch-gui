@@ -54,6 +54,10 @@ import galleryIcon from './gallery/gallery.svg';
 import stretchIcon from './gallery/stretch.svg';
 import gamepadIcon from './gallery/gamepad.svg';
 import cursorIcon from './gallery/cursor.svg';
+import fileIcon from './gallery/file.svg';
+import pointerlockIcon from './gallery/pointerlock.svg';
+import runtimeOptionsIcon from './gallery/runtime-options.svg';
+import utilitiesIcon from './gallery/utilities.svg';
 
 export default [
     {
@@ -341,6 +345,29 @@ export default [
     {
         name: (
             <FormattedMessage
+                defaultMessage="TurboWarp Extension Gallery"
+                description="Name of extensions.turbowarp.org in extension library"
+                id="tw.extensionGallery.name"
+            />
+        ),
+        href: 'https://extensions.turbowarp.org/',
+        extensionId: '',
+        iconURL: galleryIcon,
+        description: (
+            <FormattedMessage
+                // eslint-disable-next-line max-len
+                defaultMessage="We list many extensions here for convenience. You can find even more on extensions.turbowarp.org."
+                description="Description of extensions.turbowarp.org in extension library"
+                id="tw.extensionGallery.description"
+            />
+        ),
+        tags: ['tw'],
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: (
+            <FormattedMessage
                 defaultMessage="TurboWarp Blocks"
                 description="Name of TW extension"
                 id="tw.twExtension.name"
@@ -391,24 +418,44 @@ export default [
         featured: true
     },
     {
-        name: (
-            <FormattedMessage
-                defaultMessage="TurboWarp Extension Gallery"
-                description="Name of extensions.turbowarp.org in extension library"
-                id="tw.extensionGallery.name"
-            />
-        ),
-        href: 'https://extensions.turbowarp.org/',
-        extensionId: '',
-        iconURL: galleryIcon,
-        description: (
-            <FormattedMessage
-                defaultMessage="extensions.turbowarp.org is the place to find powerful and safe custom extensions."
-                description="Description of extensions.turbowarp.org in extension library"
-                id="tw.extensionGallery.description"
-            />
-        ),
+        name: 'Files',
+        extensionId: 'files',
+        extensionURL: 'https://extensions.turbowarp.org/files.js',
+        iconURL: fileIcon,
+        description: 'Read and download files.',
         tags: ['tw'],
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Pointerlock',
+        extensionId: 'pointerlock',
+        extensionURL: 'https://extensions.turbowarp.org/pointerlock.js',
+        iconURL: pointerlockIcon,
+        // eslint-disable-next-line max-len
+        description: 'Adds blocks for mouse locking. Mouse x & y blocks will report the change since the previous frame while the pointer is locked.',
+        tags: ['tw'],
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Runtime Options',
+        extensionId: 'runtimeoptions',
+        extensionURL: 'https://extensions.turbowarp.org/runtime-options.js',
+        iconURL: runtimeOptionsIcon,
+        description: 'Get and modify turbo mode, framerate, interpolation, clone limit, stage size, and more.',
+        tags: ['tw'],
+        incompatibleWithScratch: true,
+        featured: true
+    },
+    {
+        name: 'Utilities',
+        extensionId: 'utilities',
+        extensionURL: 'https://extensions.turbowarp.org/utilities.js',
+        iconURL: utilitiesIcon,
+        description: 'A bunch of interesting blocks. Originally created by Sheep_maker.',
+        tags: ['tw'],
+        incompatibleWithScratch: true,
         featured: true
     },
     {
@@ -429,6 +476,7 @@ export default [
             />
         ),
         tags: ['tw'],
+        incompatibleWithScratch: true,
         featured: true
     }
 ];
