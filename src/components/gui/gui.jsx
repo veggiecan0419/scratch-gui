@@ -34,6 +34,7 @@ import TelemetryModal from '../telemetry-modal/telemetry-modal.jsx';
 import TWUsernameModal from '../../containers/tw-username-modal.jsx';
 import TWSettingsModal from '../../containers/tw-settings-modal.jsx';
 import TWSecurityManager from '../../containers/tw-security-manager.jsx';
+import TWCustomExtensionModal from '../../containers/tw-custom-extension-modal.jsx';
 
 import layout, {STAGE_SIZE_MODES} from '../../lib/layout-constants';
 import {resolveStageSize} from '../../lib/screen-utils';
@@ -143,6 +144,7 @@ const GUIComponent = props => {
         tipsLibraryVisible,
         usernameModalVisible,
         settingsModalVisible,
+        customExtensionModalVisible,
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
@@ -168,6 +170,7 @@ const GUIComponent = props => {
                 <TWSecurityManager />
                 {usernameModalVisible && <TWUsernameModal />}
                 {settingsModalVisible && <TWSettingsModal />}
+                {customExtensionModalVisible && <TWCustomExtensionModal />}
             </React.Fragment>
         );
 
@@ -495,6 +498,7 @@ GUIComponent.propTypes = {
     tipsLibraryVisible: PropTypes.bool,
     usernameModalVisible: PropTypes.bool,
     settingsModalVisible: PropTypes.bool,
+    customExtensionModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
