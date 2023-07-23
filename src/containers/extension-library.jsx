@@ -37,15 +37,21 @@ class ExtensionLibrary extends React.PureComponent {
             return;
         }
 
+        // eslint-disable-next-line no-alert
+        if (item.incompatibleWithScratch && !confirm(this.props.intl.formatMessage(messages.incompatible))) {
+            return;
+        }
+        
         const extensionId = item.extensionId;
-        const isCustomURL = !item.disabled && !extensionId;
-        if (isCustomURL) {
-            this.props.onOpenCustomExtensionModal();
+        if (extensionId === 'procedures_enable_return') {
+            this.props.onEnableProcedureReturns();
+            this.props.onCategorySelected('myBlocks');
             return;
         }
 
-        // eslint-disable-next-line no-alert
-        if (item.incompatibleWithScratch && !confirm(this.props.intl.formatMessage(messages.incompatible))) {
+        const isCustomURL = !item.disabled && !extensionId;
+        if (isCustomURL) {
+            this.props.onOpenCustomExtensionModal();
             return;
         }
 
@@ -89,6 +95,7 @@ class ExtensionLibrary extends React.PureComponent {
 ExtensionLibrary.propTypes = {
     intl: intlShape.isRequired,
     onCategorySelected: PropTypes.func,
+    onEnableProcedureReturns: PropTypes.func,
     onOpenCustomExtensionModal: PropTypes.func,
     onRequestClose: PropTypes.func,
     visible: PropTypes.bool,
