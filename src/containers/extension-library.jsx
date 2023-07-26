@@ -37,21 +37,23 @@ class ExtensionLibrary extends React.PureComponent {
             return;
         }
 
+        const extensionId = item.extensionId;
+
+        // Don't warn about Scratch compatibility before showing modal
+        const isCustomURL = !item.disabled && !extensionId;
+        if (isCustomURL) {
+            this.props.onOpenCustomExtensionModal();
+            return;
+        }
+
         // eslint-disable-next-line no-alert
         if (item.incompatibleWithScratch && !confirm(this.props.intl.formatMessage(messages.incompatible))) {
             return;
         }
-        
-        const extensionId = item.extensionId;
+
         if (extensionId === 'procedures_enable_return') {
             this.props.onEnableProcedureReturns();
             this.props.onCategorySelected('myBlocks');
-            return;
-        }
-
-        const isCustomURL = !item.disabled && !extensionId;
-        if (isCustomURL) {
-            this.props.onOpenCustomExtensionModal();
             return;
         }
 
