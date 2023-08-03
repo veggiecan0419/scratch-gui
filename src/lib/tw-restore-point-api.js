@@ -502,67 +502,18 @@ const getThumbnail = id => openDB().then(db => new Promise((resolve, reject) => 
     };
 }));
 
-// We will enable this after a couple days
-/*
 const deleteLegacyData = () => {
     try {
         if (typeof indexedDB !== 'undefined') {
-            const _request = indexedDB.deleteDatabase('TW_AutoSave');
+            const LEGACY_DATABASE_NAME = 'TW_AutoSave';
+            const _request = indexedDB.deleteDatabase(LEGACY_DATABASE_NAME);
             // don't really care what happens to the request at this point
         }
     } catch (e) {
         // ignore
     }
 };
-*/
-
-const loadLegacyRestorePoint = () => new Promise((resolve, reject) => {
-    if (typeof indexedDB === 'undefined') {
-        reject(new Error('indexedDB not supported'));
-        return;
-    }
-
-    const LEGACY_DATABASE_NAME = 'TW_AutoSave';
-    const LEGACY_DATABASE_VERSION = 1;
-    const LEGACY_STORE_NAME = 'project';
-
-    const openRequest = indexedDB.open(LEGACY_DATABASE_NAME, LEGACY_DATABASE_VERSION);
-    openRequest.onerror = () => {
-        reject(new Error(`Error opening DB: ${openRequest.error}`));
-    };
-    openRequest.onsuccess = () => {
-        const db = openRequest.result;
-        if (!db.objectStoreNames.contains(LEGACY_STORE_NAME)) {
-            reject(new Error('Could not find local database for legacy restore point'));
-            return;
-        }
-
-        const transaction = db.transaction(LEGACY_STORE_NAME, 'readonly');
-        transaction.onerror = () => {
-            reject(new Error(`Transaction error: ${transaction.error}`));
-        };
-
-        const zip = new JSZip();
-        const projectStore = transaction.objectStore(LEGACY_STORE_NAME);
-        const cursorRequest = projectStore.openCursor();
-        cursorRequest.onsuccess = () => {
-            const cursor = cursorRequest.result;
-            if (cursor) {
-                zip.file(cursor.key, cursor.value.data);
-                cursor.continue();
-            } else {
-                const hasJSON = !!zip.file('project.json');
-                if (hasJSON) {
-                    resolve(zip.generateAsync({
-                        type: 'arraybuffer'
-                    }));
-                } else {
-                    reject(new Error('Could not find project.json'));
-                }
-            }
-        };
-    };
-});
+deleteLegacyData();
 
 export default {
     TYPE_AUTOMATIC,
@@ -573,6 +524,5 @@ export default {
     deleteRestorePoint,
     deleteAllRestorePoints,
     getThumbnail,
-    loadRestorePoint,
-    loadLegacyRestorePoint
+    loadRestorePoint
 };
