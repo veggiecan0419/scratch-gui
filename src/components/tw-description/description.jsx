@@ -11,7 +11,7 @@ const decorate = text => {
     // Make @mentions clickable
     text = reactStringReplace(text, /@([\w-]+)/, (match, i) => (
         <a
-            href={`https://scratch.mit.edu/users/${match}/`}
+            href={`https://scratch.org/users/${match}/`}
             rel="noreferrer"
             key={match + i}
         >{`@${match}`}</a>
@@ -30,7 +30,7 @@ const decorate = text => {
     // Make hashtags clickable
     text = reactStringReplace(text, /#([\w-]+)/g, (match, i) => (
         <a
-            href={`https://scratch.mit.edu/search/projects?q=${match}`}
+            href={`https://scratch.org/search/projects?q=${match}`}
             key={match + i}
         >{`#${match}`}</a>
     ));
@@ -46,7 +46,7 @@ const Description = ({
     <div className={styles.description}>
         <div className={styles.projectLink}>
             <a
-                href={`https://scratch.mit.edu/projects/${projectId}/`}
+                href={`https://scratch.org/projects/${projectId}/`}
                 target="_blank"
                 rel="noreferrer"
             >

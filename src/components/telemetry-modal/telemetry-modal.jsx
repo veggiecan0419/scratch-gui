@@ -149,7 +149,7 @@ class TelemetryModal extends React.PureComponent {
                         values={{
                             privacyPolicyLink: (<a
                                 className={styles.privacyPolicyLink}
-                                href="https://scratch.mit.edu/privacy_policy/"
+                                href="https://scratch.org/privacy_policy/"
                                 onClick={this.props.onShowPrivacyPolicy}
                                 target="_blank"
                                 rel="noopener noreferrer"

@@ -56,7 +56,7 @@ const AuthorInfo = ({projectId, ...props}) => (
     projectId ? (
         <a
             className={styles.link}
-            href={`https://scratch.mit.edu/projects/${projectId}`}
+            href={`https://scratch.org/projects/${projectId}`}
             target="_blank"
             rel="noreferrer"
         >

@@ -310,7 +310,7 @@ StudioView.PROJECT_PAGE = 'https://turbowarp.org/$id';
 
 // The URL for studio pages.
 // $id is replaced with the studio ID.
-StudioView.STUDIO_PAGE = 'https://scratch.mit.edu/studios/$id/';
+StudioView.STUDIO_PAGE = 'https://scratch.org/studios/$id/';
 
 // The amount of "placeholders" to insert before the next page loads.
 StudioView.PLACEHOLDER_COUNT = 9;

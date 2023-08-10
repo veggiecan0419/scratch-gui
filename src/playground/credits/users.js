@@ -10,7 +10,7 @@ const shuffle = list => {
 
 const fromHardcoded = ({userId, username, name}) => ({
     image: `https://trampoline.turbowarp.org/avatars/${userId}`,
-    href: `https://scratch.mit.edu/users/${username}/`,
+    href: `https://scratch.org/users/${username}/`,
     text: name || username
 });
 

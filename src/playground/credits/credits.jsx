@@ -64,10 +64,10 @@ const Credits = () => (
         <section>
             <h2>Scratch</h2>
             <p>
-                TurboWarp is based on the work of the <a href="https://scratch.mit.edu/credits">Scratch contributors</a> but is not endorsed by Scratch in any way.
+                TurboWarp is based on the work of the <a href="https://scratch.org/credits">Scratch contributors</a> but is not endorsed by Scratch in any way.
             </p>
             <p>
-                <a href="https://scratch.mit.edu/donate">
+                <a href="https://scratch.org/donate">
                     Donate to support Scratch.
                 </a>
             </p>

@@ -2,7 +2,7 @@ import {TextDecoder, TextEncoder} from './tw-text-encoder';
 
 const fixSVG = fileData => {
     // width="100%" and height="100%" on SVGs can break things
-    // Demo: https://scratch.mit.edu/projects/447085841/
+    // Demo: https://scratch.org/projects/447085841/
     // Based on: https://github.com/ScratchAddons/ScratchAddons/pull/748
     try {
         const bytes = new Uint8Array(fileData);
