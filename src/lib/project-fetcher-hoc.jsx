@@ -137,7 +137,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                 .then(projectAsset => {
                     // tw: If the project data appears to be HTML, then the result is probably an nginx 404 page,
                     // and the "missing project" project should be loaded instead.
-                    // See: https://projects.scratch.mit.edu/9999999999999999999999
+                    // See: https://scratch-projects.scratch.org/9999999999999999999999
                     if (projectAsset && projectAsset.data) {
                         const firstChar = projectAsset.data[0];
                         if (firstChar === '<' || firstChar === '<'.charCodeAt(0)) {
@@ -209,7 +209,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
     };
     ProjectFetcherComponent.defaultProps = {
         assetHost: 'https://assets.scratch.mit.edu',
-        projectHost: 'https://projects.scratch.mit.edu'
+        projectHost: 'https://scratch-projects.scratch.org'
     };
 
     const mapStateToProps = state => ({
