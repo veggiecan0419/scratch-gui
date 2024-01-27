@@ -1,4 +1,5 @@
 import GamepadLib from "./gamepadlib.js";
+import addSmallStageClass from "../../libraries/common/cs/small-stage.js";
 
 export default async function ({ addon, console, msg }) {
   const vm = addon.tab.traps.vm;
@@ -119,8 +120,8 @@ export default async function ({ addon, console, msg }) {
   }
 
   const renderer = vm.runtime.renderer;
-  const width = renderer._xRight - renderer._xLeft;
-  const height = renderer._yTop - renderer._yBottom;
+  const stageWidth = () => vm.runtime.stageWidth;
+  const stageHeight = () => vm.runtime.stageHeight;
   const canvas = renderer.canvas;
 
   const container = document.createElement("div");
@@ -287,23 +288,7 @@ export default async function ({ addon, console, msg }) {
     editor.focus();
   });
 
-  if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
-    document.body.classList.add("sa-gamepad-small");
-  }
-  document.addEventListener(
-    "click",
-    (e) => {
-      if (e.target.closest("[class*='stage-header_stage-button-first']:not(.sa-hide-stage-button)")) {
-        document.body.classList.add("sa-gamepad-small");
-      } else if (
-        e.target.closest("[class*='stage-header_stage-button-last']") ||
-        e.target.closest(".sa-hide-stage-button")
-      ) {
-        document.body.classList.remove("sa-gamepad-small");
-      }
-    },
-    { capture: true }
-  );
+  addSmallStageClass();
 
   const virtualCursorElement = document.createElement("img");
   virtualCursorElement.hidden = true;
@@ -339,8 +324,8 @@ export default async function ({ addon, console, msg }) {
   const virtualCursorSetPosition = (x, y) => {
     virtualCursorSetVisible(true);
     const CURSOR_SIZE = 6;
-    const stageX = width / 2 + x - CURSOR_SIZE / 2;
-    const stageY = height / 2 - y - CURSOR_SIZE / 2;
+    const stageX = stageWidth() / 2 + x - CURSOR_SIZE / 2;
+    const stageY = stageHeight() / 2 - y - CURSOR_SIZE / 2;
     virtualCursorElement.style.transform = `translate(${stageX}px, ${stageY}px)`;
   };
 
@@ -352,8 +337,8 @@ export default async function ({ addon, console, msg }) {
   let getCanvasSize;
   // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for TurboWarp)
   if (window.ResizeObserver) {
-    let canvasWidth = width;
-    let canvasHeight = height;
+    let canvasWidth = stageWidth();
+    let canvasHeight = stageHeight();
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         canvasWidth = entry.contentRect.width;
@@ -379,8 +364,8 @@ export default async function ({ addon, console, msg }) {
       ...data,
       canvasWidth: rectWidth,
       canvasHeight: rectHeight,
-      x: (virtualX + width / 2) * (rectWidth / width),
-      y: (height / 2 - virtualY) * (rectHeight / height),
+      x: (virtualX + stageWidth() / 2) * (rectWidth / stageWidth()),
+      y: (stageHeight() / 2 - virtualY) * (rectHeight / stageHeight()),
     });
   };
   const postKeyboardData = (key, isDown) => {
@@ -431,12 +416,19 @@ export default async function ({ addon, console, msg }) {
     }
   };
 
-  if (!pointerlock) {
-    gamepad.virtualCursor.maxX = renderer._xRight;
-    gamepad.virtualCursor.minX = renderer._xLeft;
-    gamepad.virtualCursor.maxY = renderer._yTop;
-    gamepad.virtualCursor.minY = renderer._yBottom;
-  }
+  const updateStageSize = () => {
+    if (!pointerlock) {
+      gamepad.virtualCursor.maxX = renderer._xRight;
+      gamepad.virtualCursor.minX = renderer._xLeft;
+      gamepad.virtualCursor.maxY = renderer._yTop;
+      gamepad.virtualCursor.minY = renderer._yBottom;
+    }
+    if (!virtualCursorElement.hidden) {
+      virtualCursorSetPosition(virtualX, virtualY);
+    }
+  };
+  vm.on("STAGE_SIZE_CHANGED", updateStageSize);
+  updateStageSize();
 
   gamepad.addEventListener("keydown", handleGamepadButtonDown);
   gamepad.addEventListener("keyup", handleGamepadButtonUp);
@@ -446,7 +438,7 @@ export default async function ({ addon, console, msg }) {
 
   while (true) {
     const target = await addon.tab.waitForElement(
-      '[class^="stage-header_embed-buttons_"], [class^="stage-header_stage-size-row"], [class^="stage-header_stage-menu-wrapper"] > [class^="button_outlined-button"]',
+      '[class^="stage-header_stage-size-row"], [class^="stage-header_fullscreen-buttons-row_"]',
       {
         markAsSeen: true,
         reduxEvents: [
@@ -458,13 +450,12 @@ export default async function ({ addon, console, msg }) {
       }
     );
     container.dataset.editorMode = addon.tab.editorMode;
-    if (target.className.includes("stage-size-row")) {
+    if (target.closest('[class^="stage-header_stage-size-row"]')) {
       addon.tab.appendToSharedSpace({ space: "stageHeader", element: container, order: 1 });
     } else {
       addon.tab.appendToSharedSpace({ space: "fullscreenStageHeader", element: container, order: 0 });
     }
 
-    const monitorListScaler = document.querySelector("[class^='monitor-list_monitor-list-scaler']");
-    monitorListScaler.appendChild(virtualCursorElement);
+    vm.renderer.addOverlay(virtualCursorElement, "scale");
   }
 }
