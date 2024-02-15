@@ -64,14 +64,30 @@ const motion = function (isInitialSetup, isStage, targetId, colors) {
                 </shadow>
             </value>
         </block>
-        <block type="motion_changebyxy">
+        <block type="motion_glideto" id="motion_glideto">
+            <value name="SECS">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="TO">
+                <shadow type="motion_glideto_menu">
+                </shadow>
+            </value>
+        </block>
+        <block type="motion_glidesecstoxy">
+            <value name="SECS">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
             <value name="X">
-                <shadow id="movex" type="math_number">
+                <shadow id="glidex" type="math_number">
                     <field name="NUM">0</field>
                 </shadow>
             </value>
             <value name="Y">
-                <shadow id="movey" type="math_number">
+                <shadow id="glidey" type="math_number">
                     <field name="NUM">0</field>
                 </shadow>
             </value>
@@ -87,18 +103,6 @@ const motion = function (isInitialSetup, isStage, targetId, colors) {
         <block type="motion_pointtowards">
             <value name="TOWARDS">
                 <shadow type="motion_pointtowards_menu">
-                </shadow>
-            </value>
-        </block>
-        <block type="motion_pointtowardsxy">
-            <value name="X">
-                <shadow id="movex" type="math_number">
-                    <field name="NUM">0</field>
-                </shadow>
-            </value>
-            <value name="Y">
-                <shadow id="movey" type="math_number">
-                    <field name="NUM">0</field>
                 </shadow>
             </value>
         </block>
@@ -132,8 +136,9 @@ const motion = function (isInitialSetup, isStage, targetId, colors) {
             </value>
         </block>
         ${blockSeparator}
+        <block type="motion_ifonedgebounce"/>
+        ${blockSeparator}
         <block type="motion_setrotationstyle"/>
-        <block id="${targetId}_rotationstyle" type="motion_rotationstyle"/>
         ${blockSeparator}
         <block id="${targetId}_xposition" type="motion_xposition"/>
         <block id="${targetId}_yposition" type="motion_yposition"/>
@@ -267,7 +272,6 @@ const looks = function (isInitialSetup, isStage, targetId, costumeName, backdrop
             </value>
         </block>
         <block type="looks_cleargraphiceffects"/>
-        <block id="${targetId}_effect" type="looks_effect"/>
         ${blockSeparator}
         ${isStage ? '' : `
             <block type="looks_show"/>
@@ -355,15 +359,16 @@ const events = function (isInitialSetup, isStage, targetId, colors) {
     return `
     <category name="%{BKY_CATEGORY_EVENTS}" id="events" colour="${colors.primary}" secondaryColour="${colors.tertiary}">
         <block type="event_whenflagclicked"/>
-        <block type="event_when"/>
         <block type="event_whenkeypressed">
         </block>
-        ${blockSeparator}
         ${isStage ? `
             <block type="event_whenstageclicked"/>
         ` : `
             <block type="event_whenthisspriteclicked"/>
         `}
+        <block type="event_whenbackdropswitchesto">
+        </block>
+        ${blockSeparator}
         <block type="event_whengreaterthan">
             <value name="VALUE">
                 <shadow type="math_number">
@@ -420,8 +425,6 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
         ${blockSeparator}
-        <block id="all_at_once" type="control_all_at_once"/>
-        ${blockSeparator}
         <block type="control_stop"/>
         ${blockSeparator}
         ${isStage ? `
@@ -464,6 +467,14 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
                     <shadow type="colour_picker"/>
                 </value>
             </block>
+            <block type="sensing_coloristouchingcolor">
+                <value name="COLOR">
+                    <shadow type="colour_picker"/>
+                </value>
+                <value name="COLOR2">
+                    <shadow type="colour_picker"/>
+                </value>
+            </block>
             <block type="sensing_distanceto">
                 <value name="DISTANCETOMENU">
                     <shadow type="sensing_distancetomenu"/>
@@ -490,6 +501,13 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
         <block type="sensing_mousedown"/>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>
+        ${isStage ? '' : `
+            ${blockSeparator}
+            '<block type="sensing_setdragmode" id="sensing_setdragmode"></block>'+
+            ${blockSeparator}
+        `}
+        ${blockSeparator}
+        <block id="loudness" type="sensing_loudness"/>
         ${blockSeparator}
         <block id="timer" type="sensing_timer"/>
         <block type="sensing_resettimer"/>
@@ -499,8 +517,10 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
                 <shadow id="sensing_of_object_menu" type="sensing_of_object_menu"/>
             </value>
         </block>
-        ${categorySeparator}
+        ${blockSeparator}
+        <block id="current" type="sensing_current"/>
         <block type="sensing_dayssince2000"/>
+        ${blockSeparator}
         <block type="sensing_username"/>
         ${categorySeparator}
     </category>
@@ -619,7 +639,6 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
         ${blockSeparator}
         <block type="operator_and"/>
         <block type="operator_or"/>
-        <block type="operator_xor"/>
         <block type="operator_not"/>
         ${blockSeparator}
         ${isInitialSetup ? '' : `
@@ -637,23 +656,6 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
             </block>
             <block type="operator_letter_of">
                 <value name="LETTER">
-                    <shadow type="math_whole_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                </value>
-                <value name="STRING">
-                    <shadow type="text">
-                        <field name="TEXT">${apple}</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="operator_letters_of">
-                <value name="LETTER1">
-                    <shadow type="math_whole_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                </value>
-                <value name="LETTER2">
                     <shadow type="math_whole_number">
                         <field name="NUM">1</field>
                     </shadow>
@@ -831,4 +833,4 @@ const makeToolboxXML = function (isInitialSetup, isStage = true, targetId, categ
     return everything.join('\n');
 };
 
-export default makeToolboxXML;
+export default oldToolboxXML;
