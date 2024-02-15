@@ -650,17 +650,17 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
             <block type="operator_letters_of">
                 <value name="LETTER1">
                     <shadow type="math_whole_number">
-                        <field name="NUM">1</field>
+                        <field name="NUM">2</field>
                     </shadow>
                 </value>
                 <value name="LETTER2">
                     <shadow type="math_whole_number">
-                        <field name="NUM">1</field>
+                        <field name="NUM">6</field>
                     </shadow>
                 </value>
                 <value name="STRING">
                     <shadow type="text">
-                        <field name="TEXT">${apple}</field>
+                        <field name="TEXT">${apple} ${banana}</field>
                     </shadow>
                 </value>
             </block>
