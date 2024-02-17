@@ -40,6 +40,7 @@ const addons = [
     'editor-colored-context-menus',
     'editor-stage-left',
     'editor-buttons-reverse-order',
+    "editor-block-chomping",
     'variable-manager',
     'search-sprites',
     'sprite-properties',
@@ -83,6 +84,7 @@ const addons = [
 ];
 
 const newAddons = [
+    "editor-block-chomping",
     'paint-skew',
     'editor-square-inputs',
     'copy-reporter',
