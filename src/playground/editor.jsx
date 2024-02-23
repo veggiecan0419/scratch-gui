@@ -21,8 +21,4 @@ import React from 'react';
 import Interface from './render-interface.jsx';
 import render from './app-target';
 
-if (localStorage.getItem("we have locked this out for a reason so stop tampering with this") !== "seriously, stop") {
-  throw new Error ("This is not ready for you to use yet.");
-}
-
 render(<Interface />);
