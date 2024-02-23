@@ -93,6 +93,7 @@ export default async function ({ addon, msg, console }) {
       "events",
       "control",
       "sensing",
+      "camera",
       "operators",
       "variables",
       "lists",
