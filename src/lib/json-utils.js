@@ -17,6 +17,6 @@ const sanitizeVariableValue = (value, mode) => {
 }
 
 module.exports = {
-  sanitizeValue,
+  sanitizeVariableValue,
   sanitize,
 }
