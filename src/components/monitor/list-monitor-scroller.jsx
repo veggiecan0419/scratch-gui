@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import bindAll from 'lodash.bindall';
 import {FormattedMessage} from 'react-intl';
+import {sanitize} from '../../lib/json-utils';
 
 import styles from './monitor.css';
 import {List} from 'react-virtualized';
@@ -56,7 +57,7 @@ class ListMonitorScroller extends React.Component {
                                 spellCheck={false}
                                 style={{color: this.props.categoryColor.text}}
                                 type="text"
-                                value={this.props.activeValue}
+                                value={sanitize(this.props.activeValue)}
                                 onBlur={this.props.onDeactivate}
                                 onChange={this.props.onInput}
                                 onFocus={this.props.onFocus}
