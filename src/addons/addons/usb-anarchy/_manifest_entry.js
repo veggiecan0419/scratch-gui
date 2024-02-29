@@ -2,7 +2,7 @@
 const manifest = {
   "editorOnly": true,
   "name": "Anarchy mode",
-  "description": "Connect any reporter into boolean inputs.",
+  "description": "Connect any block into any input.",
   "tags": ["new", "beta"],
   "credits": [
     {
