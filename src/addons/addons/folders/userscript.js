@@ -75,7 +75,7 @@ export default async function ({ addon, console, msg }) {
     return !name.includes(DIVIDER) && !name.endsWith("/");
   };
 
-  const RESERVED_NAMES = ["_mouse_", "_stage_", "_edge_", "_myself_", "_random_"];
+  const RESERVED_NAMES = ["_mouse_", "_stage_", "_edge_", "_myself_", "_random_", "_camera_"];
   const ensureNotReserved = (name) => {
     if (name === "") return "2";
     if (RESERVED_NAMES.includes(name)) return `${name}2`;
