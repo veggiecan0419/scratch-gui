@@ -41,6 +41,7 @@ const addons = [
     'editor-stage-left',
     'editor-buttons-reverse-order',
     "editor-block-chomping",
+    'expanded-backpack',
     'variable-manager',
     'search-sprites',
     'sprite-properties',
@@ -92,7 +93,8 @@ const newAddons = [
     'editor-compact',
     'custom-menu-bar',
     'move-to-top-layer',
-    'reorder-custom-inputs'
+    'reorder-custom-inputs',
+    'expanded-backpack'
 ];
 
 // eslint-disable-next-line import/no-commonjs
