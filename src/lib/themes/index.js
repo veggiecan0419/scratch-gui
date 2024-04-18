@@ -4,6 +4,7 @@ import * as accentPurple from './accent/purple';
 import * as accentBlue from './accent/blue';
 import * as accentRed from './accent/red';
 import * as accentGray from './accent/gray';
+import * as accentGreen from './accent/green';
 
 import * as guiLight from './gui/light';
 import * as guiDark from './gui/dark';
@@ -153,6 +154,7 @@ export {
     ACCENT_PURPLE,
     ACCENT_BLUE,
     ACCENT_MAP,
+    ACCENT_GREEN,
 
     GUI_LIGHT,
     GUI_DARK,
