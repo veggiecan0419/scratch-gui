@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: Build and deploy
+=======
+name: CI
+>>>>>>> 094cb4a6bcfe316f1bf44c7016d206a60a185583
 
 on:
   workflow_dispatch:
@@ -23,6 +27,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+<<<<<<< HEAD
     - run: npm ci
     - run: npm run build
       env:
@@ -43,3 +48,9 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
+=======
+        cache: npm
+    - run: npm ci
+    - run: npm run build
+    - run: npm run test:unit
+>>>>>>> 094cb4a6bcfe316f1bf44c7016d206a60a185583

@@ -73,6 +73,7 @@ const addons = [
     'columns',
     'number-pad',
     'editor-number-arrow-keys',
+    'expanded-backpack',
     'script-snap',
     'fullscreen',
     'hide-stage',
