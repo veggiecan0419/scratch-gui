@@ -124,7 +124,7 @@ class CustomExtensionModal extends React.Component {
         try {
             const urls = await this.getExtensionURLs();
             for (const url of urls) {
-                if (this.state.type !== 'url' && this.state.unsandboxed) {
+                if (this.state.unsandboxed) {
                     manuallyTrustExtension(url);
                 }
             }
