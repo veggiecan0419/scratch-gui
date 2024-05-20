@@ -151,10 +151,6 @@
           splashError.appendChild(el);
         };
 
-        if (!localStorage.getItem("we have locked this out for a reason so stop tampering with this") === "seriously, stop") {
-          throw new Error ("This is not ready for you to use yet.");
-        }
-
         splashReset.onclick = function () {
           splashReset.disabled = true;
           function hardRefresh() {
