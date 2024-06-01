@@ -14,25 +14,13 @@ const guiColors = {
     'extensions-light': 'hsla(203, 16%, 84%, 1)',
 
     'drop-highlight': '#8ea3b2',
-    'menu-bar-alternate': `linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 0.5) 0%,
-        rgba(255, 154, 0, 0.5) 10%,
-        rgba(208, 222, 33, 0.5) 20%,
-        rgba(79, 220, 74, 0.5) 30%,
-        rgba(63, 218, 216, 0.5) 40%,
-        rgba(47, 201, 226, 0.5) 50%,
-        rgba(28, 127, 238, 0.5) 60%,
-        rgba(95, 21, 242, 0.5) 70%,
-        rgba(186, 12, 248, 0.5) 80%,
-        rgba(251, 7, 217, 0.5) 90%,
-        rgba(255, 0, 0, 0.5) 100%
-    )`
+
+    'menu-bar-background-image': 'linear-gradient(90deg, rgba(255, 0, 0, 0.75) 0%, rgba(255, 154, 0, 0.75) 10%, rgba(208, 222, 33, 0.75) 20%, rgba(79, 220, 74, 0.75) 30%, rgba(63, 218, 216, 0.75) 40%, rgba(47, 201, 226, 0.75) 50%, rgba(28, 127, 238, 0.75) 60%, rgba(95, 21, 242, 0.75) 70%, rgba(186, 12, 248, 0.75) 80%, rgba(251, 7, 217, 0.75) 90%, rgba(255, 0, 0, 0.75) 100%)'
 };
 
 const blockColors = {
-    checkboxActiveBackground: '#66757f',
-    checkboxActiveBorder: '#4a5a65'
+    checkboxActiveBackground: '#ff4c4c',
+    checkboxActiveBorder: '#cc3333'
 };
 
 export {
