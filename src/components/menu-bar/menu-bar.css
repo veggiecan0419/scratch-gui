@@ -30,6 +30,7 @@
     font-weight: bold;
     background: $menu-bar-alternate;
     background-color: $menu-bar-background;
+    background-image: $menu-bar-background-image;
     color: $menu-bar-foreground;
 }
 
