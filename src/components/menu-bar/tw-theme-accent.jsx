@@ -11,7 +11,6 @@ import {ACCENT_BLUE, ACCENT_MAP, ACCENT_PURPLE, ACCENT_RED, ACCENT_RAINBOW, Them
 import {openAccentMenu, accentMenuOpen, closeSettingsMenu} from '../../reducers/menus.js';
 import {setTheme} from '../../reducers/theme.js';
 import {persistTheme} from '../../lib/themes/themePersistance.js';
-import rainbowIcon from './tw-accent-rainbow.svg';
 import styles from './settings-menu.css';
 
 import rainbowIcon from './tw-accent-rainbow.svg';
