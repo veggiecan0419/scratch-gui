@@ -228,7 +228,6 @@ const extensionDevelopers = [
         username: 'MikeDEV'
     },
     {
-        userID: '62950341',
         username: 'NamelessCat'
     },
     {
