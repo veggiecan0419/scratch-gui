@@ -155,7 +155,7 @@ class LoaderComponent extends React.Component {
                         >
                             <b>{'Did you know?'}</b>
                             {' '}
-                            {'LGBT Pride Month is celebrated every June.'}
+                            {'The first version of the modern pride flag had 8 colors, later reduced to 6.'}
                         </div>
                     )}
                 </div>

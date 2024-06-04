@@ -19,8 +19,7 @@
         text-align: center;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
-      .splash-screen[hidden],
-      .tw-loaded .splash-screen {
+      .splash-screen[hidden] {
         display: none;
       }
       .splash-spinner:after {
@@ -39,7 +38,7 @@
       }
 
       .splash-pride-month {
-        width: 250px;
+        max-width: 350px;
         color: #ff4c4c;
         margin-top: 1rem;
       }
@@ -56,11 +55,21 @@
       <div class="splash-spinner"></div>
 
       <div class="splash-pride-month" lang="en">
-        <b>Did you know?</b> LGBT Pride Month is celebrated every June.
+        <b>Did you know?</b> The first version of the modern pride flag had 8 colors, later reduced to 6.
       </div>
     </div>
+
     <script>
-      document.getElementById("splash-need-js").hidden = false;
+      (function() {
+        'use strict';
+
+        var splash = document.getElementById('splash-need-js');
+        splash.hidden = false;
+
+        window.SplashEnd = () => {
+          splash.hidden = true;
+        };
+      }());
     </script>
 
     <div id="app"></div>
