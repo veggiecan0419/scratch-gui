@@ -27,6 +27,10 @@ const contributors = [
         username: 'CubesterYT'
     },
     {
+        username: 'Ashimee',
+        userID: '74246431'
+    },
+    {
         userID: '64691048',
         username: 'CST1229'
     },
