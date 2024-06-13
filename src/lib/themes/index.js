@@ -6,6 +6,7 @@ import * as accentRed from './accent/red';
 import * as accentGray from './accent/gray';
 import * as accentGreen from './accent/green';
 import * as accentRainbow from './accent/rainbow';
+import * as accentPalestine from'./accent/palestine';
 
 import * as guiLight from './gui/light';
 import * as guiDark from './gui/dark';
@@ -20,6 +21,7 @@ const ACCENT_RED = 'red';
 const ACCENT_GRAY = 'gray';
 const ACCENT_GREEN = 'green';
 const ACCENT_RAINBOW = 'rainbow';
+const ACCENT_PALESTINE = 'palestine';
 const ACCENT_MAP = {
     [ACCENT_PURPLE]: accentPurple,
     [ACCENT_BLUE]: accentBlue,
@@ -27,6 +29,7 @@ const ACCENT_MAP = {
     [ACCENT_GRAY]: accentGray,
     [ACCENT_GREEN]: accentGreen,
     [ACCENT_RAINBOW]: accentRainbow,
+    [ACCENT_PALESTINE]: accentPalestine
 };
 const ACCENT_DEFAULT = ACCENT_RAINBOW;
 
@@ -158,6 +161,7 @@ export {
     ACCENT_BLUE,
     ACCENT_GREEN,
     ACCENT_RAINBOW,
+    ACCENT_PALESTINE,
     ACCENT_MAP,
 
     GUI_LIGHT,

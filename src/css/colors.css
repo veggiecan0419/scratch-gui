@@ -55,6 +55,8 @@ $drop-highlight: var(--drop-highlight);
 
 $menu-bar-background: var(--menu-bar-background);
 $menu-bar-background-image: var(--menu-bar-background-image);
+$menu-bar-background-size: auto;
+$menu-bar-background-repeat: initial;
 $menu-bar-foreground: var(--menu-bar-foreground);
 
 $assets-background: var(--assets-background);

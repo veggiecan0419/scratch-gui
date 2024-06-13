@@ -7,19 +7,25 @@ import {connect} from 'react-redux';
 import check from './check.svg';
 import dropdownCaret from './dropdown-caret.svg';
 import {MenuItem, Submenu} from '../menu/menu.jsx';
-import {ACCENT_GRAY, ACCENT_GREEN, ACCENT_BLUE, ACCENT_MAP, ACCENT_PURPLE, ACCENT_RED, ACCENT_RAINBOW, Theme} from '../../lib/themes/index.js';
+import {ACCENT_GRAY, ACCENT_GREEN, ACCENT_BLUE, ACCENT_MAP, ACCENT_PURPLE, ACCENT_RED, ACCENT_RAINBOW, ACCENT_PALESTINE, Theme} from '../../lib/themes/index.js';
 import {openAccentMenu, accentMenuOpen, closeSettingsMenu} from '../../reducers/menus.js';
 import {setTheme} from '../../reducers/theme.js';
 import {persistTheme} from '../../lib/themes/themePersistance.js';
 import styles from './settings-menu.css';
 
 import rainbowIcon from './tw-accent-rainbow.svg';
+import palestineIcon from './tw-accent-palestine.svg'
 
 const options = defineMessages({
     [ACCENT_RAINBOW]: {
         defaultMessage: 'Pride',
         description: 'Name of the pride color scheme, used by Unsandboxed by default during June.',
         id: 'tw.accent.rainbow'
+    },
+    [ACCENT_PALESTINE]: {
+        defaultMessage: 'Palestine',
+        description: 'Name of the watermelon color scheme.',
+        id: 'tw.accent.palestine'
     },
     [ACCENT_GRAY]: {
         defaultMessage: 'Gray',
@@ -49,7 +55,8 @@ const options = defineMessages({
 });
 
 const icons = {
-    [ACCENT_RAINBOW]: rainbowIcon
+    [ACCENT_RAINBOW]: rainbowIcon,
+    [ACCENT_PALESTINE]: palestineIcon
 };
 
 const ColorIcon = props => icons[props.id] ? (

@@ -57,6 +57,8 @@ const guiColors = {
 
     'menu-bar-background': 'var(--looks-secondary)',
     'menu-bar-background-image': 'none',
+    'menu-bar-background-size': 'auto',
+    'menu-bar-background-repeat': 'initial',
     'menu-bar-foreground': '#ffffff',
 
     'assets-background': '#ffffff',
